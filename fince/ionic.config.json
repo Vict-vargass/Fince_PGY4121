@@ -1,0 +1,7 @@
+{
+  "name": "fince",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

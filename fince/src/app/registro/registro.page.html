@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-text-center">
+    <h2>Registro</h2>
+  </div>
+  <ion-item>
+    <ion-label position="floating">Nombre</ion-label>
+    <ion-input placeholder="Ej: Juan Aros" #nombre></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Correo electronico</ion-label>
+    <ion-input required placeholder="abc@gmail.com" #correo></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Contraseña</ion-label>
+    <ion-input type="password" placeholder="alfanumerica" #contra></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Tipo de cliente</ion-label>
+    <ion-select #tipo placeholder="Seleccione">
+      <ion-select-option value="persona">Persona</ion-select-option>
+      <ion-select-option value="empresa">Empresa</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+  <div *ngIf="listado.length > 0">
+    <h1>Storage</h1>
+    <ion-list>
+      <div *ngFor="let aux of listado">
+        <ion-item>
+          <ion-label>{{aux[0].correo}}</ion-label>
+          <ion-label>{{aux[0].nombre}}</ion-label>
+          <ion-label>{{aux[0].tipo}}</ion-label>
+        </ion-item>
+      </div>
+    </ion-list>
+  </div> 
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="crear(correo,contra,nombre,tipo)" fill="clear">
+      <ion-icon slot="icon-only" name="add"></ion-icon>
+    </ion-button>
+    <ion-button (click)="borrar()" fill="clear" slot="" >
+      <ion-icon slot="icon-only" name="trash"></ion-icon>
+    </ion-button>
+    <ion-button (click)="listar()" fill="clear" slot="" >
+      <ion-icon slot="icon-only" name="list"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
