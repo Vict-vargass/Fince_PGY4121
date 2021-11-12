@@ -5,8 +5,6 @@ import { Storage } from '@ionic/storage-angular';
   providedIn: 'root'
 })
 export class CrudStorageService {
-  private key = 0;
-  private listado = [];
   constructor(private storage: Storage) { 
     this.init();
   }
