@@ -21,14 +21,14 @@ export class RegistroPage implements OnInit {
   ngOnInit() {
   }
 
-  async crear(correo : HTMLInputElement, contra: HTMLInputElement, nombre: HTMLInputElement, tipo: HTMLInputElement
+  async crear(correo : HTMLInputElement, contra: HTMLInputElement, nombre: HTMLInputElement,
     )
   {
-    const datos = [{"correo" : correo.value, "contrasenia":contra.value,"nombre":nombre.value,"tipo":tipo.value}];
+    const datos = [{"correo" : correo.value, "contrasenia":contra.value,"nombre":nombre.value}];
 
     const valor = await this.crud.get(correo.value);
 
-    if (correo.value.length == 0 || nombre.value.length==0 || contra.value.length ==0 || tipo.value.length == 0){
+    if (correo.value.length == 0 || nombre.value.length==0 || contra.value.length ==0){
       const alert = await this.alertController.create({
         cssClass: 'my-custom-class',
         header: 'Campos requeridos',
@@ -72,14 +72,6 @@ export class RegistroPage implements OnInit {
       //this.router.navigate(['/home'])
     }
     }
-
-  }
-  borrar(){
-    this.crud.delete_all();
-  }
-  listar()
-  {
-    this.listado = this.crud.listar();    
   }
 }
 
