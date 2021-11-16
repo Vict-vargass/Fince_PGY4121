@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudStorageService } from '../crud-storage.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -12,7 +13,8 @@ export class LoginPage implements OnInit {
   constructor(
     private crud: CrudStorageService,
     private alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private navCtrl: NavController,
   ) { }
     listado=[]
   ngOnInit() {
@@ -38,7 +40,9 @@ export class LoginPage implements OnInit {
       if (valor_correo !=null && valor_correo.length >0 ){
         this.listado = valor_correo
         if(this.listado[0].correo == correo.value && this.listado[0].contrasenia == contra.value){
-          this.router.navigate(['/home'])
+          this.crud.sendData(this.listado)
+          //this.router.navigate(['/persona-home'])
+          this.navCtrl.navigateForward(`/persona-home/${this.listado[0].nombre}`)  
         }else{
           const alert = await this.alertController.create({
             cssClass: 'my-custom-class',
@@ -57,5 +61,4 @@ export class LoginPage implements OnInit {
       }
     }
   }
-
 }
