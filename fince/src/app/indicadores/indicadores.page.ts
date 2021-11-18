@@ -14,6 +14,7 @@ export class IndicadoresPage implements OnInit {
   estado=true
   key:string;
   data:any;
+  resultadoCrud:any;
   constructor(
     private api : ApirestService, 
     private alertController : AlertController,
@@ -24,7 +25,7 @@ export class IndicadoresPage implements OnInit {
 
   async ngOnInit() {
     this.key = this.actRouter.snapshot.paramMap.get('correo').toString()
-    this.data = await this.crud.get(this.key); 
+    this.data = await this.crud.get(this.key);
   }
 
   async mostrarValorMoneda(moneda: HTMLInputElement){
@@ -33,6 +34,9 @@ export class IndicadoresPage implements OnInit {
       this.estado=true;
       await this.api.getValor(moneda.value);
       this.resultadoApi = await this.api.datos;
+      let id = this.data[0].correo+moneda.value;
+      this.crud.setApi(id, this.resultadoApi);
+      this.resultadoCrud = await this.crud.get(id);
     }else{
       const alert = await this.alertController.create({
         cssClass: 'my-custom-class',

@@ -46,7 +46,7 @@ export class CrudStorageService {
     this.storage.forEach((value, key) => {
       if (value[0].correo==correo && key !=correo){
         items.push(value);
-        console.log("items",items);
+        //console.log("items",items);
         //console.log("Key", key)
 
       }else{
@@ -93,6 +93,11 @@ export class CrudStorageService {
         }
       }
     }) 
+  }
+
+  async setApi(id:any,valor:any)
+  {
+    await this.storage.set(id.toString() , valor);
   }
 
 }
