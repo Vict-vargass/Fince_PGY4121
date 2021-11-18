@@ -56,6 +56,19 @@ export class LoginPage implements OnInit {
           await alert.present();
         }
 
+      }else{
+        const alert = await this.alertController.create({
+          cssClass: 'my-custom-class',
+          header: 'Correo o contraseña invalidos',
+          message: 'Por favor, ingrese nuevamente su correo y contraseña',
+          buttons: [
+            {
+              text: 'OK',
+              role: 'cancel'
+            }
+          ]
+        });
+        await alert.present();
       }
     }
   }
