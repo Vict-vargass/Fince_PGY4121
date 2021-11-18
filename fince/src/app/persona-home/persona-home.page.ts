@@ -1,6 +1,6 @@
 import { Component, OnInit, ɵdetectChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { CrudStorageService } from '../crud-storage.service';
 @Component({
   selector: 'app-persona-home',
@@ -14,22 +14,19 @@ export class PersonaHomePage implements OnInit {
   estadoCrearMeta=false;
   estadoListarMeta=false;
   estadoEditar = false;
-  listaMetas:any;
   listaMetaMia:any;
+  send:any;
   constructor( 
     private actRouter: ActivatedRoute,
     private crud : CrudStorageService,
     private router : Router,
     private alert : AlertController, 
-    private toast : ToastController
+    private toast : ToastController,
+    private navCtrl: NavController,
     ) { }
-   ngOnInit() {
-    this.arg= this.actRouter.snapshot.paramMap.get('nombre').toString()
-    this.crud.$getObjectSource.subscribe(data => {
-      this.lista = data
-    }).unsubscribe();  
-    this.crud.init();
-    console.log(this.lista);
+   async ngOnInit() {
+    this.arg = this.actRouter.snapshot.paramMap.get('correo').toString();
+    this.lista= await this.crud.get(this.arg); 
   } 
 
   abrirMeta(){
@@ -41,18 +38,51 @@ export class PersonaHomePage implements OnInit {
 
   async crearMeta(nombreMeta: HTMLInputElement,monto:HTMLInputElement, montoDeseado: HTMLInputElement){ 
     let id = this.listaMetaMia.length + 1;
-    const datos = [{"id": id, "correo":this.lista[0].correo,
-      "nombreMeta":nombreMeta.value, "monto":monto.value, "montoDeseado":montoDeseado.value  
-    }]
-    const toast = await this.toast.create({
-      message: 'Registro exitoso' ,
-      duration: 3000,
-      color: "success",
-      position: "middle"
-    });
-    toast.present();
-      this.crud.setMeta(id,datos)
+    if(this.listaMetaMia.length==3){
+      const alert = await this.alert.create({
+        cssClass: 'my-custom-class',
+        header: 'Limite alcanzado',
+        message: 'Solo se permiten crear 3 metas, puedes modificar o eliminar las existentes',
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel'
+          }
+        ]
+      });
+      await alert.present();
       this.cancelarCrearMeta();
+    }else{
+      if(nombreMeta.value.length <=0 || monto.value.length <=0 || montoDeseado.value.length <= 0 ){
+        const alert = await this.alert.create({
+          cssClass: 'my-custom-class',
+          header: 'Datos insuficientes',
+          message: 'Para crear una meta, ingrese todos los valores a los campos',
+          buttons: [
+            {
+              text: 'OK',
+              role: 'cancel'
+            }
+          ]
+        });
+        await alert.present();
+        
+      }else{
+        const datos = [{"id": id, "correo":this.lista[0].correo,
+        "nombreMeta":nombreMeta.value, "monto":monto.value, "montoDeseado":montoDeseado.value  
+        }];
+        this.crud.setMeta(id,datos);
+        const toast = await this.toast.create({
+          message: 'Meta creada' ,
+          duration: 3000,
+          color: "success",
+          position: "bottom"
+        });
+        toast.present();
+        this.cancelarCrearMeta();
+      }
+      
+    }
   }
 
   listarMetas(){
@@ -70,14 +100,15 @@ export class PersonaHomePage implements OnInit {
       message: '<strong>¿Está seguro de que desea eliminarla?</strong>',
       buttons: [
         {
-          text: 'No',
-          role: 'cancel'
-        }, 
-        {
           text: 'Si',
           handler: () => {
             this.crud.borrarMeta(correo,id)
+            this.cerrarListado()
           }
+        },
+        {
+          text: 'No',
+          role: 'cancel'
         }
       ]
     });
@@ -96,13 +127,9 @@ export class PersonaHomePage implements OnInit {
   async modificarMeta(correo:any, id:any, nombreMetaEd:HTMLInputElement, montoEd : HTMLInputElement, montoDeseadoEd: HTMLInputElement ){
     const alert = await this.alert.create({
       cssClass: 'my-custom-class',
-      header: 'Registro existente',
-      message: '<strong>¿Está seguro de cambiar los datos?</strong>!!!',
+      header: 'Antes de seguir',
+      message: '<strong>¿Está seguro de cambiar los datos de su meta?</strong>',
       buttons: [
-        {
-          text: 'No',
-          role: 'cancel'
-        }, 
         {
           text: 'Si',
           handler: () => {
@@ -110,11 +137,17 @@ export class PersonaHomePage implements OnInit {
             this.estadoEditar= false;
             this.listarMetas()
           }
-        }
+        },
+        {
+          text: 'No',
+          role: 'cancel'
+        }, 
       ]
     });
 
     await alert.present();
   }
-
+  verIndicadores(){
+    this.navCtrl.navigateForward(`/indicadores/${this.lista[0].correo}`);    
+  }
 }

@@ -40,9 +40,7 @@ export class LoginPage implements OnInit {
       if (valor_correo !=null && valor_correo.length >0 ){
         this.listado = valor_correo
         if(this.listado[0].correo == correo.value && this.listado[0].contrasenia == contra.value){
-          this.crud.sendData(this.listado)
-          //this.router.navigate(['/persona-home'])
-          this.navCtrl.navigateForward(`/persona-home/${this.listado[0].nombre}`)  
+          this.navCtrl.navigateForward(`/persona-home/${this.listado[0].correo}`)  
         }else{
           const alert = await this.alertController.create({
             cssClass: 'my-custom-class',

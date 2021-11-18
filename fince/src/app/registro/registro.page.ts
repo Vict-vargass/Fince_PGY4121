@@ -28,7 +28,7 @@ export class RegistroPage implements OnInit {
 
     const valor = await this.crud.get(correo.value);
 
-    if (correo.value.length == 0 || nombre.value.length==0 || contra.value.length ==0){
+    if(correo.value.length == 0 || nombre.value.length==0 || contra.value.length ==0){
       const alert = await this.alertController.create({
         cssClass: 'my-custom-class',
         header: 'Campos requeridos',
@@ -41,7 +41,22 @@ export class RegistroPage implements OnInit {
         ]
       });
       await alert.present();
-    }else{
+    }
+    else if(contra.value.length < 6){
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: 'Contraseña muy corta',
+        message: 'Tu contraseña debe tener minimo 6 caracteres para ser valida',
+        buttons: [
+          {
+            text: 'OK',
+            role: 'cancel'
+          }
+        ]
+      });
+      await alert.present();
+    }
+    else{
           // permite saber que existe el correo
     if(valor != null && valor.length > 0)
     {
@@ -66,12 +81,16 @@ export class RegistroPage implements OnInit {
         message: 'Registro exitoso' ,
         duration: 3000,
         color: "success",
-        position: "middle"
+        position: "bottom"
       });
       toast.present();
-      //this.router.navigate(['/home'])
+      this.router.navigate(['/home'])
     }
     }
+  }
+
+  borrarTodo(){
+    this.crud.delete_all()
   }
 }
 
