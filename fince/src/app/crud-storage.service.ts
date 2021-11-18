@@ -7,8 +7,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CrudStorageService {
   
-  private objectSource = new BehaviorSubject<{}>({});
-  $getObjectSource = this.objectSource.asObservable();
 
   constructor(private storage: Storage) { 
     this.init();
@@ -16,13 +14,10 @@ export class CrudStorageService {
 
   async init()
   {
-    // crea el storage para ser usado en el proyecto
     await this.storage.create();
   }
   async set(valor:any)
   {
-    //let id = await this.storage.length() + 1;
-    //await this.storage.set(id.toString() , valor);
     await this.storage.set(valor[0].correo , valor);
   }
 
@@ -41,29 +36,23 @@ export class CrudStorageService {
   delete_all(){
     this.storage.clear()
   }
-  sendData(data:any){
-    this.objectSource.next(data);
-  }
 
   async setMeta(id:any,valor:any)
   {
     await this.storage.set(id.toString() , valor);
-    //await this.storage.set(valor[0].correo , valor);
   }
 
   listarMeta(correo:string){
     let items = [];
+    let msj = null;
     this.storage.forEach((value, key) => {
       if (value[0].correo==correo && key !=correo){
         items.push(value);
-        console.log("items",items);
-        console.log("Key", key)
-        
+        return items
       }else{
-        console.log("no value found");
+        return msj
       }
     })
-    return items
   }
 
   borrarMeta(correo:any, id:any){
