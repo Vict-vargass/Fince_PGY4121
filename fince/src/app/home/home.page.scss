@@ -1,27 +1,29 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.bckg-home{
+  background-image: url("/assets/img/fondo.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+} 
+.main-div{
+  padding-top: 25%;
+  height: 100%;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.fondo-card{
+  background-color: rgb(24 51 68 / 35%);
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+.tc-w{
+  color: rgb(255, 255, 255);
 }
 
-#container a {
-  text-decoration: none;
+.separador{
+  padding-top: 35%;
+}
+
+.sepa{
+  padding-bottom: 10%;
+}
+
+.center-element{
+  margin: 0 auto;
 }

@@ -7,27 +7,23 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-text-center">
-    <h2>Registro</h2>
-  </div>
-  <ion-item>
-    <ion-label position="floating">Nombre</ion-label>
-    <ion-input placeholder="Ej: Juan Aros" #nombre></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Correo electronico</ion-label>
-    <ion-input required placeholder="abc@gmail.com" #correo></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Contraseña</ion-label>
-    <ion-input type="password" placeholder="alfanumerica" #contra></ion-input>
-  </ion-item>
+<div class="bckg-home main-div">
+  <ion-card class="fondo-card">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center tc-w">Registro</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-label class="tc-w" position="floating">Nombre</ion-label>
+      <ion-input class="tc-w" placeholder="Ej: Victor Vargas" #nombre></ion-input>
+      <ion-label class="tc-w" position="floating">Correo electronico</ion-label>
+      <ion-input class="tc-w" required placeholder="abc@gmail.com" #correo></ion-input>
+      <ion-label class="tc-w" position="floating">Contraseña</ion-label>
+      <ion-input class="tc-w" type="password" placeholder="min 6 caracteres" #contra></ion-input>
+      <ion-button expand="block" (click)="crear(correo,contra,nombre)">
+        Registrarse
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</div>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-    <ion-button (click)="crear(correo,contra,nombre)" fill="clear">
-      Registrarse
-    </ion-button>
-  </ion-toolbar>
-</ion-footer>

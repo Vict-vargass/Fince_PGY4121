@@ -1,18 +1,22 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
-  <div class="ion-text-center">
-    <h2>Bienvenido a Fince</h2>
+  <div class="bckg-home main-div">
+    <div class="separador"></div>
+    <ion-card class="fondo-card">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center tc-w">Fince</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p class="ion-text-center tc-w sepa">La aplicacion donde podrás crear hasta 3 metas financieras y conocer el valor de los indicadores economicos mas populares en Chile</p>
+      <ion-button expand="block" (click)="login()">
+        Iniciar sesión
+      </ion-button>
+      <ion-button expand="block" (click)="registro()">Registrarse</ion-button>
+    </ion-card-content>
+  </ion-card>
   </div>
-
-  <ion-button href="/registro">Ir a registro </ion-button>
-  <ion-button href="/login">Iniciar sesión</ion-button>
 
 </ion-content>

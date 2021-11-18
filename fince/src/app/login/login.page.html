@@ -1,6 +1,5 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>login</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
@@ -8,22 +7,23 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-text-center">
-    <h2>Inicio de sesión</h2>
+  <div class="bckg-home main-div">
+
+    <ion-card class="fondo-card">
+      <ion-card-header>
+        <ion-card-title class="ion-text-center tc-w">Inicio de sesión</ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-label class="tc-w" position="floating">Correo electronico</ion-label>
+        <ion-input class="tc-w" placeholder="ingresa tu correo" #correo></ion-input>
+        <ion-label class="tc-w" position="floating">Contraseña</ion-label>
+        <ion-input class="tc-w" type="password" placeholder="Ingresa tu contraseña" #contra></ion-input>
+        <ion-button expand="block" (click)="entrar(correo, contra)">
+          Iniciar sesión
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
   </div>
-  <ion-item>
-    <ion-label position="floating">Correo electronico</ion-label>
-    <ion-input placeholder="Ej: Juan Aros" #correo></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Contraseña</ion-label>
-    <ion-input placeholder="Ej: Juan Aros" #contra></ion-input>
-  </ion-item>
 </ion-content>
-<ion-footer>
-  <ion-toolbar>
-    <ion-button (click)="entrar(correo, contra)">
-      Iniciar sesión
-    </ion-button>
-  </ion-toolbar>
-</ion-footer>

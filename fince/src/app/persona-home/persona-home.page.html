@@ -1,74 +1,90 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>personaHome</ion-title>
+    <ion-title>Fince</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-title>Hola {{arg}}</ion-title>
 
-  <ion-button (click)="abrirMeta()" expand="block">Crear Meta</ion-button>
-  <div *ngIf="estadoCrearMeta==true">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Meta nueva</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-item>
-          <ion-label position="floating">Nombre de la meta</ion-label>
-          <ion-input placeholder="Alcanzar..." #nombreMeta></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Monto actual</ion-label>
-          <ion-input placeholder="$999.999" #monto></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Monto a alcanzar</ion-label>
-          <ion-input placeholder="$999.999" #montoDeseado></ion-input>
-        </ion-item>
-        <ion-button (click)="crearMeta(nombreMeta, monto, montoDeseado)" color="primary">Crear</ion-button>
-        <ion-button (click)="cancelarCrearMeta()" color="danger">Cancelar</ion-button>
-      </ion-card-content>
-    </ion-card>
-  </div>
-  <ion-button (click)="listarMetas()">Ver mis Metas</ion-button>
-
-  <div *ngIf="estadoListarMeta==true">
-    <div>
-      <h1>metas</h1>
-      <div *ngFor="let a of listaMetaMia">
-        <ion-card>
+  <div class="bckg-home main-div">
+    <div *ngIf="lista !=null">
+      <ion-card class="fondo-card">
+        <ion-card-header>
+          <ion-avatar class="center-element">
+            <img src="/assets/icon/person-circle-outline.svg" alt="img_avatar">
+          </ion-avatar>
+          <h2 class="ion-text-center tc-w">Hola {{lista[0].nombre}}</h2>
+        </ion-card-header>
+      </ion-card>
+    </div>
+  
+    <ion-button (click)="abrirMeta()" expand="block">Crear Meta</ion-button>
+    <div *ngIf="estadoCrearMeta==true">
+      <div class="bckg-home sepa">
+        <ion-card class="fondo-card">
           <ion-card-header>
-            <ion-card-title>{{a[0].nombreMeta}}</ion-card-title>
+            <ion-card-title class="ion-text-center tc-w">Meta nueva</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <ion-label>Monto total</ion-label>
-            <ion-item><p>{{a[0].monto}}</p></ion-item>
-            <ion-label>Monto a alcanzar</ion-label>
-            <ion-item><p>{{a[0].montoDeseado}}</p></ion-item>
-            <ion-button (click)="abrirEditar()">Editar</ion-button>
-            <div *ngIf="estadoEditar==true">
-              <ion-item>
-                <ion-label position="floating">Nombre de la meta</ion-label>
-                <ion-input placeholder="Alcanzar..." #nombreMetaEd></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="floating">Monto actual nuevo</ion-label>
-                <ion-input placeholder="$999.999" #montoEd></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="floating">Monto a alcanzar</ion-label>
-                <ion-input placeholder="$999.999" #montoDeseadoEd></ion-input>
-              </ion-item>
-              <ion-button (click)="modificarMeta(a[0].correo, a[0].id, nombreMetaEd, montoEd, montoDeseadoEd)">Aceptar</ion-button>
-              <ion-button (click)="cerrarModificar()">Cancelar</ion-button>
-            </div>
-            <ion-button (click)="borrarMeta(a[0].correo, a[0].id)">Eliminar</ion-button>
+            <ion-label class="tc-w" position="floating">Nombre de la meta</ion-label>
+            <ion-input class="tc-w hov-input" placeholder="Alcanzar..." #nombreMeta></ion-input>
+            <ion-label class="tc-w" position="floating">Monto actual</ion-label>
+            <ion-input class="tc-w" placeholder="$999.999" #monto></ion-input>
+            <ion-label class="tc-w" position="floating">Monto a alcanzar</ion-label>
+            <ion-input class="tc-w" placeholder="$999.999" #montoDeseado></ion-input>
+            <ion-button (click)="crearMeta(nombreMeta, monto, montoDeseado)" color="primary">Crear</ion-button>
+            <ion-button (click)="cancelarCrearMeta()" color="danger">Cancelar</ion-button>
           </ion-card-content>
         </ion-card>
       </div>
-      <ion-button (click)="cerrarListado()">Cerrar</ion-button>
     </div>
+    <ion-button (click)="listarMetas()" expand="block">Ver mis Metas</ion-button>
+    <div *ngIf="estadoListarMeta==true">
+      <div class="bckg-home sepa">
+        <h3 class="ion-text-center tc-w">Metas</h3>
+        <div *ngIf="listaMetaMia==null">
+          <p class="ion-text-center tc-w">Actualmente usted no posee metas</p>
+        </div>
+        <div *ngFor="let a of listaMetaMia">
+          <ion-card class="fondo-card">
+            <ion-card-header>
+              <ion-card-title class="tc-w">{{a[0].nombreMeta}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-label class="tc-w">Monto total</ion-label>
+              <p class="tc-w">{{a[0].monto}}</p>
+              <ion-label class="tc-w">Monto a alcanzar</ion-label>
+              <p class="tc-w">{{a[0].montoDeseado}}</p>
+              <ion-button (click)="abrirEditar()">Editar</ion-button>
+              <div *ngIf="estadoEditar==true">
+                <ion-label class="tc-w" position="floating">Nombre de la meta</ion-label>
+                <ion-input class="tc-w" placeholder="Alcanzar..." #nombreMetaEd></ion-input>
+                <ion-label class="tc-w" position="floating">Monto actual nuevo</ion-label>
+                <ion-input class="tc-w" placeholder="$999.999" #montoEd></ion-input>
+                <ion-label class="tc-w" position="floating">Monto a alcanzar</ion-label>
+                <ion-input class="tc-w" placeholder="$999.999" #montoDeseadoEd></ion-input>
+                <ion-button (click)="modificarMeta(a[0].correo, a[0].id, nombreMetaEd, montoEd, montoDeseadoEd)">Aceptar</ion-button>
+                <ion-button (click)="cerrarModificar()">Cancelar</ion-button>
+              </div>
+              <ion-button color="danger" (click)="borrarMeta(a[0].correo, a[0].id)">Eliminar</ion-button>
+            </ion-card-content>
+          </ion-card>
+        </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col></ion-col>
+            <ion-col>
+              <ion-button color="danger" (click)="cerrarListado()">Cerrar</ion-button>
+            </ion-col>
+            <ion-col></ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+    <ion-button (click)="verIndicadores()" expand="block">Ver indicadores</ion-button>
   </div>
-  
+
 </ion-content>
