@@ -20,9 +20,14 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'persona-home/:nombre',
+    path: 'persona-home/:correo',
     loadChildren: () => import('./persona-home/persona-home.module').then( m => m.PersonaHomePageModule)
   },
+  {
+    path: 'indicadores/:correo',
+    loadChildren: () => import('./indicadores/indicadores.module').then( m => m.IndicadoresPageModule)
+  },
+
 ];
 
 @NgModule({
