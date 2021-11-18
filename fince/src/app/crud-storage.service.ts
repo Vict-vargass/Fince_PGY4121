@@ -41,30 +41,31 @@ export class CrudStorageService {
   {
     await this.storage.set(id.toString() , valor);
   }
-
   listarMeta(correo:string){
     let items = [];
-    let msj = null;
     this.storage.forEach((value, key) => {
       if (value[0].correo==correo && key !=correo){
         items.push(value);
-        return items
+        console.log("items",items);
+        //console.log("Key", key)
+
       }else{
-        return msj
+        console.log("no value found");
       }
     })
+    return items
   }
 
   borrarMeta(correo:any, id:any){
-    console.log(id)
-    console.log(correo);
+    //console.log(id)
+    //console.log(correo);
     this.storage.forEach((value, key) =>{
       if (value[0].correo==correo){
         if(key !=correo){
-          console.log("valuesBorrar",value)
-          console.log("keyBorrar",key)
-          console.log("idBorrar", value[0].id);
-          console.log("idVar",id)
+          //console.log("valuesBorrar",value)
+          //console.log("keyBorrar",key)
+          //console.log("idBorrar", value[0].id);
+          //console.log("idVar",id)
           if(id.toString()==key){
             this.storage.remove(id)
           }

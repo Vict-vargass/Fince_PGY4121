@@ -26,7 +26,10 @@ export class PersonaHomePage implements OnInit {
     ) { }
    async ngOnInit() {
     this.arg = this.actRouter.snapshot.paramMap.get('correo').toString();
-    this.lista= await this.crud.get(this.arg); 
+    this.lista= await this.crud.get(this.arg);
+    this.crud.init();
+    this.listaMetaMia = this.crud.listarMeta(this.lista[0].correo);
+    
   } 
 
   abrirMeta(){
@@ -38,6 +41,7 @@ export class PersonaHomePage implements OnInit {
 
   async crearMeta(nombreMeta: HTMLInputElement,monto:HTMLInputElement, montoDeseado: HTMLInputElement){ 
     let id = this.listaMetaMia.length + 1;
+    id = id + this.lista[0].correo
     if(this.listaMetaMia.length==3){
       const alert = await this.alert.create({
         cssClass: 'my-custom-class',
