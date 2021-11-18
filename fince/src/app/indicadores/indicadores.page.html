@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="regresar()">Regresar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="bckg-home main-div">
+    <ion-card class="fondo-card">
+      <ion-card-header>
+        <ion-card-title class="ion-text-center tc-w">Indicadores economicos</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="tc-w">Aqui se encuentran los principales indicadores económicos para Chile, con valores actualizados desde Banco de Chile.</p>
+      </ion-card-content>
+    </ion-card>
+    <br>
+    <ion-item>
+      <ion-label>Indicador</ion-label>
+      <ion-select #moneda placeholder="Seleccione">
+        <ion-select-option value="dolar">Dolar</ion-select-option>
+        <ion-select-option value="euro">Euro</ion-select-option>
+        <ion-select-option value="uf">UF</ion-select-option>
+        <ion-select-option value="utm">UTM</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <br>
+    <ion-grid>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col><ion-button (click)="mostrarValorMoneda(moneda)" >Mostrar valor</ion-button></ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </ion-grid>
+    <div *ngIf="estado==true">
+      <div *ngIf="resultadoApi != undefined">
+        <div class="bckg-home sepa">
+          <ion-card class="fondo-card">
+            <ion-card-header>
+              <ion-card-title class="tc-w">{{resultadoApi.nombre}}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p><ion-label class="tc-w">Valor: {{resultadoApi.serie[0].valor}} {{resultadoApi.unidad_medida}}</ion-label></p>
+              <p><ion-label class="tc-w">Fecha: {{resultadoApi.serie[0].fecha}}</ion-label></p>
+              <ion-button expand="block" color="danger" (click)="cerrar()">Cerrar</ion-button>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+</ion-content>
